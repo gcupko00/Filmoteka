@@ -1,6 +1,7 @@
 package cupkovic.fesb.hr.filmoteka;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by EliteBook40 on 1/21/2018.
@@ -8,7 +9,8 @@ import java.lang.reflect.Array;
 
 public class Movie {
     private int id;
-    private Array genres;
+    private ArrayList<Genre> genres;
+    private ArrayList<Integer> genre_ids;
     private String original_title;
     private String overview;        // string or null
     private double popularity;
@@ -25,11 +27,19 @@ public class Movie {
         this.id = id;
     }
 
-    public Array getGenres() {
+    public ArrayList<Genre> getGenres() {
         return genres;
     }
-    public void setGenres(Array genres) {
+    public void setGenres(ArrayList<Genre> genres) {
         this.genres = genres;
+    }
+
+    public ArrayList<Integer> getGenre_ids() {
+        return genre_ids;
+    }
+
+    public void setGenre_ids(ArrayList<Integer> genre_ids) {
+        this.genre_ids = genre_ids;
     }
 
     public String getOriginal_title() {

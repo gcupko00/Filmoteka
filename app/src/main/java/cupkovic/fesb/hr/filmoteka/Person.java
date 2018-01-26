@@ -11,6 +11,16 @@ public class Person {
     private int gender;         // only allowed values 0: not set, 1: Female, 2: Male
     private int id;
     private String name;
+    private String profile_path;
+
+    public String getProfile_path() {
+        return profile_path;
+    }
+
+    public void setProfile_path(String profile_path) {
+        this.profile_path = profile_path;
+    }
+
 
     public String getBirthday() {
         return birthday;

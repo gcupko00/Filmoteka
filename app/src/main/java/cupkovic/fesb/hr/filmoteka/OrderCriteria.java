@@ -9,5 +9,14 @@ public enum OrderCriteria {
     TOP_RATED("top_rated"),
     LATEST("/latest");
 
-    private OrderCriteria(String s) { }
+    private final String text;
+
+    private OrderCriteria(final String text) {
+        this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return text;
+    }
 }
