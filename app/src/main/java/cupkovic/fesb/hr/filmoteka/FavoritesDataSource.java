@@ -66,7 +66,7 @@ public class FavoritesDataSource {
 
         cursor.moveToFirst();
 
-        if (! cursor.isAfterLast()) {
+        if (!cursor.isAfterLast()) {
             movie.setId(cursor.getInt(1));
         }
 
@@ -85,7 +85,7 @@ public class FavoritesDataSource {
 
         cursor.moveToFirst();
 
-        if (! cursor.isAfterLast()) {
+        if (!cursor.isAfterLast()) {
             actor.setId(cursor.getInt(1));
         }
 
@@ -102,7 +102,7 @@ public class FavoritesDataSource {
         Cursor cursor =	database.rawQuery("SELECT *	FROM MovieFavorites", null);
         cursor.moveToFirst();
 
-        while(!	cursor.isAfterLast()) {
+        while(!cursor.isAfterLast()) {
             Movie currentMovie = new Movie();
             currentMovie.setId(cursor.getInt(1));
             movies.add(currentMovie);
@@ -123,7 +123,7 @@ public class FavoritesDataSource {
         Cursor cursor =	database.rawQuery("SELECT *	FROM ActorFavorites", null);
         cursor.moveToFirst();
 
-        while(!	cursor.isAfterLast()) {
+        while(!cursor.isAfterLast()) {
             Person currentActor = new Person();
             currentActor.setId(cursor.getInt(1));
             actors.add(currentActor);
