@@ -1,4 +1,4 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

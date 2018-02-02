@@ -1,4 +1,4 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.data.models;
 
 /**
  * Created by gcupk on 1/25/2018.

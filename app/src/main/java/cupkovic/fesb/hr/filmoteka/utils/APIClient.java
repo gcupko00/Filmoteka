@@ -1,4 +1,4 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -10,6 +10,12 @@ import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.util.ArrayList;
 
+import cupkovic.fesb.hr.filmoteka.data.ActorsProvider;
+import cupkovic.fesb.hr.filmoteka.data.DataStorage;
+import cupkovic.fesb.hr.filmoteka.data.MoviesProvider;
+import cupkovic.fesb.hr.filmoteka.data.models.Movie;
+import cupkovic.fesb.hr.filmoteka.data.models.Person;
+import cupkovic.fesb.hr.filmoteka.interfaces.IApiSubscriber;
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -34,10 +40,10 @@ public class APIClient {
     private static AsyncHttpClient httpClient = new AsyncHttpClient();
     private static Gson gson = new Gson();
 
-    private IApiSubscribe responseSubscriber;
+    private IApiSubscriber responseSubscriber;
 
     // Private constructor to prevent instantiation
-    public APIClient(IApiSubscribe responseSubscriber) {
+    public APIClient(IApiSubscriber responseSubscriber) {
         this.responseSubscriber = responseSubscriber;
     }
 
@@ -45,7 +51,7 @@ public class APIClient {
      * Response subscriber getter
      * @return response subscriber - a class which is currently subscribed to this class
      */
-    public IApiSubscribe getResponseSubscriber() {
+    public IApiSubscriber getResponseSubscriber() {
         return responseSubscriber;
     }
 
@@ -53,16 +59,17 @@ public class APIClient {
      * Sets the response subscriber class - a class which uses this class to get any data from the API.
      * @param responseSubscriber class which uses APIClient to get data from the API
      */
-    public void setResponseSubscriber(IApiSubscribe responseSubscriber) {
-        responseSubscriber = responseSubscriber;
+    public void setResponseSubscriber(IApiSubscriber responseSubscriber) {
+        this.responseSubscriber = responseSubscriber;
     }
 
     /**
      * Gets the list of movies from the API.
      * @param orderCriteria defines whether to get movies sorted by popularity, date or rate
      * @param page page of the movies list to download
+     * @param storage MovieProvider object to which movie list should be stored
      */
-    public void fetchMovieList(final OrderCriteria orderCriteria, int page) {
+    public void fetchMovieList(final OrderCriteria orderCriteria, int page, final MoviesProvider storage) {
         String url = API_URL + MOVIE + orderCriteria.toString() + AUTH_QUERY + AND + PAGE_QUERY + page;
 
         httpClient.get(url, new TextHttpResponseHandler() {
@@ -74,7 +81,8 @@ public class APIClient {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 JsonElement results = getJSONElement("results", responseString);
-                DataStorage.moviesList = gson.fromJson(results, new TypeToken<ArrayList<Movie>>(){}.getType());
+                ArrayList<Movie> movies = gson.fromJson(results, new TypeToken<ArrayList<Movie>>(){}.getType());
+                storage.setData(movies);
                 // Response handler method callback. For now, response is null, since everything needed is stored in DataStorage
                 getResponseSubscriber().handleAPISuccessResponse(null);
             }
@@ -85,24 +93,24 @@ public class APIClient {
      * Gets the list of movies from the API. Downloads the first page of the results
      * @param orderCriteria defines whether to get movies sorted by popularity, date or rate
      */
-    public void fetchMovieList(OrderCriteria orderCriteria) {
-        fetchMovieList(orderCriteria, 1);
+    public void fetchMovieList(OrderCriteria orderCriteria, MoviesProvider storage) {
+        fetchMovieList(orderCriteria, 1, storage);
     }
 
     /**
      * Gets the list of movies from the API. Uses POPULAR as a default order criteria
      * @param page page of the movies list to download
      */
-    public void fetchMovieList(int page) {
-        fetchMovieList(OrderCriteria.POPULAR, page);
+    public void fetchMovieList(int page, MoviesProvider storage) {
+        fetchMovieList(OrderCriteria.POPULAR, page, storage);
     }
 
     /**
      * Gets the list of movies from the API. Downloads the first page of the results.
      * Uses POPULAR as a default order criteria
      */
-    public void fetchMovieList() {
-        fetchMovieList(OrderCriteria.POPULAR, 1);
+    public void fetchMovieList(MoviesProvider storage) {
+        fetchMovieList(OrderCriteria.POPULAR, 1, storage);
     }
 
     /**
@@ -131,7 +139,7 @@ public class APIClient {
      * Gets the list of actors. By default, it downloads actors sorted by popularity
      * @param page page of the actors list to download
      */
-    public void fetchActorList(int page) {
+    public void fetchActorList(int page, final ActorsProvider storage) {
         String url = API_URL + ACTOR_LIST + AUTH_QUERY + AND + PAGE_QUERY + page;
 
         httpClient.get(url, new TextHttpResponseHandler() {
@@ -144,7 +152,8 @@ public class APIClient {
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 // fill data storage with movies from the response
                 JsonElement results = getJSONElement("results", responseString);
-                DataStorage.personsList = gson.fromJson(results, new TypeToken<ArrayList<Person>>(){}.getType());
+                ArrayList<Person> actors = gson.fromJson(results, new TypeToken<ArrayList<Person>>(){}.getType());
+                storage.setData(actors);
                 getResponseSubscriber().handleAPISuccessResponse(null);
             }
         });
@@ -153,8 +162,8 @@ public class APIClient {
     /**
      * Gets the first page of the actors list. By default, it downloads actors sorted by popularity.
      */
-    public void fetchActorList() {
-        fetchActorList(1);
+    public void fetchActorList(ActorsProvider storage) {
+        fetchActorList(1, storage);
     }
 
     public void fetchActor(String actorId) {

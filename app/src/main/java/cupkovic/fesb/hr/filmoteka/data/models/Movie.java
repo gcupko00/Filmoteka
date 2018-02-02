@@ -1,6 +1,5 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.data.models;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

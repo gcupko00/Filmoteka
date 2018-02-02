@@ -1,22 +1,21 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements IApiSubscribe {
+import cupkovic.fesb.hr.filmoteka.utils.APIClient;
+import cupkovic.fesb.hr.filmoteka.interfaces.IApiSubscriber;
+import cupkovic.fesb.hr.filmoteka.R;
+
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        APIClient apiClient = new APIClient(this);
 
         Button Movie_Button = (Button) findViewById(R.id.MoviesBtn);
         Button Actors_Button = (Button) findViewById(R.id.ActorsBtn);
@@ -36,14 +35,5 @@ public class MainActivity extends AppCompatActivity implements IApiSubscribe {
                 startActivity(newActorsActivity);
             }
         });
-    }
-
-    @Override
-    public void handleAPISuccessResponse(Object result) {
-    }
-
-    @Override
-    public void handleAPIErrorResponse(Object result) {
-
     }
 }

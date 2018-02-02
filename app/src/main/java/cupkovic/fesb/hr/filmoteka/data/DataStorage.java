@@ -1,11 +1,16 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.data;
 
 import java.util.ArrayList;
+
+import cupkovic.fesb.hr.filmoteka.data.models.Movie;
+import cupkovic.fesb.hr.filmoteka.data.models.MovieCredit;
+import cupkovic.fesb.hr.filmoteka.data.models.Person;
 
 /**
  * Created by EliteBook40 on 1/21/2018.
  */
 
+@Deprecated
 public class DataStorage {
     public static ArrayList<Movie> moviesList = new ArrayList<Movie>();
     public static ArrayList<Person> personsList = new ArrayList<Person>();

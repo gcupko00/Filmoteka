@@ -1,4 +1,4 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.data.models;
 
 /**
  * Created by EliteBook40 on 1/21/2018.

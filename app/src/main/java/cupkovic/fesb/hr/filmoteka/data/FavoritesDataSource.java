@@ -1,4 +1,4 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+
+import cupkovic.fesb.hr.filmoteka.data.models.Movie;
+import cupkovic.fesb.hr.filmoteka.data.models.Person;
 
 /**
  * Created by mskor on 30/01/2018.

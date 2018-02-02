@@ -1,4 +1,4 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.data.models;
 
 /**
  * Created by EliteBook40 on 1/21/2018.
@@ -21,10 +21,10 @@ public class Person {
         this.profile_path = profile_path;
     }
 
-
     public String getBirthday() {
         return birthday;
     }
+
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
@@ -32,6 +32,7 @@ public class Person {
     public String getDeathday() {
         return deathday;
     }
+
     public void setDeathday(String deathday) {
         this.deathday = deathday;
     }
@@ -39,6 +40,7 @@ public class Person {
     public String getBiography() {
         return biography;
     }
+
     public void setBiography(String biography) {
         this.biography = biography;
     }
@@ -46,6 +48,7 @@ public class Person {
     public int getGender() {
         return gender;
     }
+
     public void setGender(int gender) {
         this.gender = gender;
     }
@@ -53,6 +56,7 @@ public class Person {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -60,6 +64,7 @@ public class Person {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }

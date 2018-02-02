@@ -1,21 +1,22 @@
-package cupkovic.fesb.hr.filmoteka;
+package cupkovic.fesb.hr.filmoteka.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
+
+import cupkovic.fesb.hr.filmoteka.R;
 
 /**
  * Created by JureSedlar on 22-Jan-18.
  */
 
-public class MoviesListAdapter extends BaseAdapter {
+public class ActorsListAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public MoviesListAdapter(Context context) {
+    public ActorsListAdapter(Context context) {
         this.context = context;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -30,7 +31,7 @@ public class MoviesListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.movies_activity_item, parent, false);
+            convertView = layoutInflater.inflate(R.layout.actors_activity_item, parent, false);
         }
 
 
