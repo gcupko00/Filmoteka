@@ -29,6 +29,14 @@ public interface IDataProvider<T> {
     void setData(ArrayList<T> value);
 
     /**
+     * Returns object of type T stored at the specified position in the list
+     * @param position Position of the object in the list
+     * @return Element at the specified location
+     * @throws NoSuchElementException Raised if requested position is out of bounds of the list
+     */
+    T getAtPosition(int position) throws NoSuchElementException;
+
+    /**
      * Gets all the stored data
      * @return The list of the stored objects of type T
      */

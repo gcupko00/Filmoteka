@@ -48,6 +48,21 @@ public class MoviesProvider implements IDataProvider<Movie> {
     }
 
     /**
+     * Returns movie stored at the specified position in the list of movies
+     * @param position Position of the object in the list
+     * @return Movie stored at the specified position
+     * @throws NoSuchElementException Raised if requested position is out of bounds of the list
+     */
+    @Override
+    public Movie getAtPosition(int position) throws NoSuchElementException {
+        if (position < this.movies.size()) {
+            return this.movies.get(position);
+        }
+
+        throw new NoSuchElementException("Out of bounds");
+    }
+
+    /**
      * Gets the list of all stored movies
      * @return The list of all stored movies
      */
