@@ -43,7 +43,7 @@ public class APIClient {
     public static final String MOVIE = "/movie";
     public static final String PERSON = "/person";
     public static final String ACTOR_LIST = "/person/popular";
-    public static final String CREDITS = "/movie_credits";
+    public static final String CREDITS = "/credits";
     public static final String SEARCH = "/search";
 
     private static AsyncHttpClient httpClient = new AsyncHttpClient();

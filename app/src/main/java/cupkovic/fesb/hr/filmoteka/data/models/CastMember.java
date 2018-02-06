@@ -32,4 +32,5 @@ public class CastMember extends Person {
     public void setCharacter(String character) {
         this.character = character;
     }
+
 }

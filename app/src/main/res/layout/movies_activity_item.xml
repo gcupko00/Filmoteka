@@ -4,23 +4,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="80dp">
 
     <ImageView
-        android:id="@+id/PosterImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxHeight="70dp"
-        android:scaleType="fitXY"
+        android:id="@+id/posterImage"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:maxHeight="70dp"
+        android:scaleType="fitXY"
         android:src="@drawable/icon" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_toRightOf="@+id/PosterImage"
+        android:layout_toRightOf="@+id/posterImage"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:layout_marginLeft="10dp"
@@ -32,26 +31,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textStyle="bold"
-            android:hint="Fight Club"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/CriticsScore"
+            android:id="@+id/averageVote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/movieTitle"
             android:layout_below="@+id/movieTitle"
-            android:hint="91%"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/Cast"
+            android:id="@+id/releaseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/CriticsScore"
+            android:layout_below="@+id/averageVote"
             android:maxLines="1"
             android:ellipsize="end"
-            android:hint="Christian Bale, Joseph-Gordon Levitt, Heath Ledger, Maggie Gylenhall"
             android:textSize="12sp" />
 
     </RelativeLayout>

@@ -1,5 +1,6 @@
 package cupkovic.fesb.hr.filmoteka.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
