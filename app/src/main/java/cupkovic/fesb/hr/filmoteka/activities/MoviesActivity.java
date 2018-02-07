@@ -23,12 +23,13 @@ import cupkovic.fesb.hr.filmoteka.utils.APIClient;
  */
 
 public class MoviesActivity extends AppCompatActivity implements IApiSubscriber {
-    MoviesProvider moviesProvider;
-    MoviesListAdapter moviesListAdapter;
-    ListView moviesListView;
-    SearchView moviesSearchView;
-    Button favouritesButton;
-    APIClient apiClient;
+    private MoviesProvider moviesProvider;
+    private MoviesListAdapter moviesListAdapter;
+    private ListView moviesListView;
+    private SearchView moviesSearchView;
+    private Button favouritesButton;
+    private Button watchlistButton;
+    private APIClient apiClient;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,16 @@ public class MoviesActivity extends AppCompatActivity implements IApiSubscriber 
         favouritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //start movie favourites activity
+                Intent favourites = new Intent(MoviesActivity.this, MovieFavouritesActivity.class);
+                startActivity(favourites);
+            }
+        });
+
+        watchlistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent watchlist = new Intent(MoviesActivity.this, WatchlistActivity.class);
+                startActivity(watchlist);
             }
         });
     }
@@ -88,5 +98,6 @@ public class MoviesActivity extends AppCompatActivity implements IApiSubscriber 
         this.moviesListView = (ListView) findViewById(R.id.movies_ListView);
         this.moviesSearchView = (SearchView) findViewById(R.id.moviesSearchView);
         this.favouritesButton = (Button) findViewById(R.id.FavouritesBtn);
+        this.watchlistButton = (Button) findViewById(R.id.WatchlistBtn);
     }
 }

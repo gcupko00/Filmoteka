@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
+
 import java.util.ArrayList;
 
 import cupkovic.fesb.hr.filmoteka.data.CastProvider;
@@ -45,6 +46,7 @@ public class APIClient {
     public static final String ACTOR_LIST = "/person/popular";
     public static final String CREDITS = "/credits";
     public static final String SEARCH = "/search";
+    public static final String RATING = "/rating";
 
     private static AsyncHttpClient httpClient = new AsyncHttpClient();
     private static Gson gson = new Gson();

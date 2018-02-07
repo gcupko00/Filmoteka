@@ -108,16 +108,65 @@
             android:textSize="23dp"
             android:id="@+id/individual_movie_cast"/>
 
-        <Button
-            android:id="@+id/addToFavouritesBtn"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#d67601"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="18sp"
-            android:text="Add To Favourites" />
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
 
+
+            <Button
+                android:id="@+id/addMovieToFavouritesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d67601"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="Add To Faves" />
+
+            <Button
+                android:id="@+id/removeMovieFromFavouritesBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d67601"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="Remove" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
+
+
+            <Button
+                android:id="@+id/addMovieToWatchlistBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d67601"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="Add To Watch" />
+
+            <Button
+                android:id="@+id/removeMovieFromWatchlistBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d67601"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="Remove" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

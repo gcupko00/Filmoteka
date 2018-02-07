@@ -59,13 +59,13 @@ public class FavoritesDataSource {
 
     /**
      * Gets a movie from the movie favorites table in database
-     * @param id Database Id of the movie, incremental integer - 1,2,3, etc.
+     * @param id API Id of the movie
      * @return movie object with only API id set, other properties need to be fetched
      */
-    public Movie getMovieByDatabaseId(int id) {
+    public Movie getMovieByApiId(int id) {
         Movie movie = new Movie();
 
-        Cursor cursor = database.rawQuery("SELECT * FROM MovieFavorites WHERE id = '" + String.valueOf(id) + "'", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM MovieFavorites WHERE movieIdAPI = '" + String.valueOf(id) + "'", null);
 
         cursor.moveToFirst();
 
@@ -78,13 +78,13 @@ public class FavoritesDataSource {
 
     /**
      * Gets an actor from the actor favorites table in database
-     * @param id Database Id of the actor, incremental integer - 1,2,3, etc.
+     * @param id API Id of the actor
      * @return actor object with only API id set, other properties need to be fetched
      */
-    public Person getActorByDatabaseId(int id) {
+    public Person getActorByApiId(int id) {
         Person actor = new Person();
 
-        Cursor cursor = database.rawQuery("SELECT * FROM ActorFavorites WHERE id = '" + String.valueOf(id) + "'", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM ActorFavorites WHERE actorIdAPI = '" + String.valueOf(id) + "'", null);
 
         cursor.moveToFirst();
 
@@ -113,7 +113,7 @@ public class FavoritesDataSource {
         }
 
         cursor.close();
-        return	movies;
+        return movies;
     }
 
     /**
@@ -138,6 +138,56 @@ public class FavoritesDataSource {
     }
 
     /**
+     * Adds a movie to the movie watchlist table in database
+     * @param movieApiId API Id of the movie to be added - id returned from the API
+     */
+    public void addMovieToWatchlist(int movieApiId) {
+        ContentValues values = new ContentValues();
+        values.put("movieIdAPI", movieApiId);
+        database.insert("Watchlist", null, values);
+    }
+
+    /**
+     * Gets a movie from the movie favorites table in database
+     * @param id API Id of the movie
+     * @return movie object with only API id set, other properties need to be fetched
+     */
+    public Movie getMovieFromWatchlistByApiId(int id) {
+        Movie movie = new Movie();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM Watchlist WHERE movieIdAPI = '" + String.valueOf(id) + "'", null);
+
+        cursor.moveToFirst();
+
+        if (!cursor.isAfterLast()) {
+            movie.setId(cursor.getInt(1));
+        }
+
+        return movie;
+    }
+
+    /**
+     * Gets all movies from watchlist
+     * @return list with movie objects, each object has only API id set, other props need to be fetched
+     */
+    public ArrayList<Movie> getAllMoviesFromWatchlist()	{
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+
+        Cursor cursor =	database.rawQuery("SELECT *	FROM Watchlist", null);
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()) {
+            Movie currentMovie = new Movie();
+            currentMovie.setId(cursor.getInt(1));
+            movies.add(currentMovie);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return movies;
+    }
+
+    /**
      * Deletes a movie from the movie favorites table in database
      * @param movieApiId API Id of the movie, the one which was returned from API
      * @return boolean value indicating whether a certain movie was deleted, true if it was
@@ -153,5 +203,14 @@ public class FavoritesDataSource {
      */
     public boolean deleteActorFavoriteByApiId(int actorApiId) {
         return database.delete("ActorFavorites", "actorIdAPI = " + actorApiId, null) > 0;
+    }
+
+    /**
+     * Deletes a movie from the movie watchlist table in database
+     * @param movieApiId API Id of the movie, the one which was returned from API
+     * @return boolean value indicating whether a certain movie was deleted, true if it was
+     */
+    public boolean deleteMovieFromWatchlistByApiId(int movieApiId) {
+        return database.delete("Watchlist", "movieIdAPI = " + movieApiId, null) > 0;
     }
 }
