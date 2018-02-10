@@ -1,11 +1,14 @@
 package cupkovic.fesb.hr.filmoteka.utils;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 
@@ -35,6 +38,7 @@ public class APIClient {
     public static final String KEY_QUERY = "?api_key=";
     public static final String PAGE_QUERY = "page=";
     public static final String QUERY_QUERY = "query=";
+    public static final String GUEST_QUERY = "guest_session_id=";
     public static final String SLASH = "/";
     public static final String AND = "&";
 
@@ -145,6 +149,54 @@ public class APIClient {
                 Movie movie = gson.fromJson(responseString, Movie.class);
                 // Return movie to the caller class via callback method
                 getResponseSubscriber().handleAPISuccessResponse(movie);
+            }
+        });
+    }
+
+    /**
+     * Gets the guest session ID from API when the app is started for the first time
+     */
+    public void fetchGuestSessionId() {
+        String url = API_URL + "/authentication/guest_session/new" + AUTH_QUERY;
+
+        httpClient.get(url, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                getResponseSubscriber().handleAPIErrorResponse("API Error");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                JsonElement guestSessionId = getJSONElement("guest_session_id", responseString);
+                getResponseSubscriber().handleAPISuccessResponse(guestSessionId.getAsString());
+                Log.i("GUEST", guestSessionId.getAsString());
+            }
+        });
+    }
+
+    /**
+     * Gets the movie from API based on it's ID and returns the result to the caller method
+     * @param movieId Identification of the movie to rate
+     * @param rating Rating of the movie
+     * @param guestSessionId session Id needed to perform the rate
+     */
+    public void rateMovie(String movieId, double rating, String guestSessionId) {
+        String url = API_URL + MOVIE + SLASH + movieId + RATING + AUTH_QUERY + AND
+                + GUEST_QUERY + guestSessionId;
+
+        RequestParams params = new RequestParams();
+        params.add("value", String.valueOf(rating));
+
+        httpClient.post(url, params, new TextHttpResponseHandler() {
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                getResponseSubscriber().handleAPIErrorResponse("API Error");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                getResponseSubscriber().handleAPISuccessResponse("Rated");
+                Log.i("RATE", responseString);
             }
         });
     }

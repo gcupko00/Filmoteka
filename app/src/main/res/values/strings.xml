@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Filmoteka</string>
+
+    <string-array name="FiltersStringArray">
+        <item>Year</item>
+        <item>Vote</item>
+    </string-array>
 </resources>

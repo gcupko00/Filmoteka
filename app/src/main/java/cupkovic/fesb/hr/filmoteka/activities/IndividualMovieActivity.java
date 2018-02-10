@@ -37,10 +37,12 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
     private TextView averageVote;
     private TextView voteCount;
     private TextView cast;
+    private EditText editRating;
     private Button addToFavouritesButton;
     private Button removeFromFavouritesButton;
     private Button addToWatchlistButton;
     private Button removeFromWatchlistButton;
+    private Button rateButton;
 
     private CastProvider castProvider;
     private CrewProvider crewProvider;
@@ -121,6 +123,15 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
             }
         });
 
+        rateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Double rating = Double.valueOf(editRating.getText().toString());
+                String guestSessionId = favoritesDataSource.getGuestSessionId();
+                apiClient.rateMovie(String.valueOf(currentMovie.getId()), rating, guestSessionId);
+            }
+        });
+
     }
 
     @Override
@@ -128,6 +139,11 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
         if (response instanceof Movie) {
             this.currentMovie = (Movie) response;
             loadCrewAndCastData(this.currentMovie.getId());
+        }
+        else if (response instanceof  String) {
+            Toast.makeText(getApplicationContext(),
+                    this.currentMovie.getOriginal_title() + " rated",
+                    Toast.LENGTH_LONG).show();
         }
 
         else {
@@ -160,6 +176,8 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
         this.removeFromFavouritesButton = (Button) findViewById(R.id.removeMovieFromFavouritesBtn);
         this.addToWatchlistButton = (Button) findViewById(R.id.addMovieToWatchlistBtn);
         this.removeFromWatchlistButton = (Button) findViewById(R.id.removeMovieFromWatchlistBtn);
+        this.editRating = (EditText) findViewById(R.id.editMovieRate);
+        this.rateButton = (Button) findViewById(R.id.rateMovieButton);
     }
 
     private void loadCrewAndCastData(int movieId) {

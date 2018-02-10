@@ -25,6 +25,11 @@ public class FavoritesSQLiteHelper extends SQLiteOpenHelper {
             + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "	movieIdAPI INTEGER NOT NULL);";
 
+    private static final String GUEST_SESSION_CREATE = "CREATE TABLE GuestSession"
+            + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "	guestSessionId VARCHAR(50) NOT NULL);";
+
+
     public FavoritesSQLiteHelper(Context context) {
         super(context, "filmotekadatabase.db",	null, DATABASE_VERSION);
     }
@@ -34,6 +39,7 @@ public class FavoritesSQLiteHelper extends SQLiteOpenHelper {
         database.execSQL(MOVIE_FAVS_CREATE);
         database.execSQL(ACTOR_FAVS_CREATE);
         database.execSQL(WATCHLIST_CREATE);
+        database.execSQL(GUEST_SESSION_CREATE);
     }
 
     @Override
@@ -42,7 +48,7 @@ public class FavoritesSQLiteHelper extends SQLiteOpenHelper {
                 "Upgrading database	from version " + oldVersion + "	to	"
                         + newVersion + ",	which	will	destroy	all	old	data");
 
-        db.execSQL("DROP TABLE IF EXISTS MovieFavorites, ActorFavorites");
+        db.execSQL("DROP TABLE IF EXISTS MovieFavorites, ActorFavorites, Watchlist, GuestSession");
         onCreate(db);
     }
 }

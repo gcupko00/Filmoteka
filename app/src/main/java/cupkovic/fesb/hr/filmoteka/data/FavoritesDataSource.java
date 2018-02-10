@@ -188,6 +188,35 @@ public class FavoritesDataSource {
     }
 
     /**
+     * Saves guest session Id fro the API to the database, this Id is used for movie rating
+     * This Id is retrieved only once per device and stored for later uses
+     * @param guestSessionId session Id that needs to be retrieved from the API
+     */
+    public void saveGuestSessionId(String guestSessionId) {
+        ContentValues values = new ContentValues();
+        values.put("guestSessionId", guestSessionId);
+        database.insert("GuestSession", null, values);
+    }
+
+    /**
+     * Retrieves guest session Id stored in the database
+     * @return session Id from the database
+     */
+    public String getGuestSessionId() {
+        String guestSessionId = "";
+
+        Cursor cursor = database.rawQuery("SELECT * FROM GuestSession", null);
+
+        cursor.moveToFirst();
+
+        if (!cursor.isAfterLast()) {
+            guestSessionId = cursor.getString(1);
+        }
+
+        return guestSessionId;
+    }
+
+    /**
      * Deletes a movie from the movie favorites table in database
      * @param movieApiId API Id of the movie, the one which was returned from API
      * @return boolean value indicating whether a certain movie was deleted, true if it was
