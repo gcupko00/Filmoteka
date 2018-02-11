@@ -102,6 +102,7 @@ public class ActorsActivity extends AppCompatActivity implements IApiSubscriber 
 
     private void displayData() {
         actorsListView.setAdapter(this.actorsListAdapter);
+        Toast.makeText(getApplicationContext(), personsProvider.getAtPosition(0).getBirthday(), Toast.LENGTH_LONG).show();
     }
 
     private void checkIfGuestSessionIdExists() {

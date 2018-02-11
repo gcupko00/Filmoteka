@@ -1,5 +1,7 @@
 package cupkovic.fesb.hr.filmoteka.data.models;
 
+import java.util.ArrayList;
+
 /**
  * Created by EliteBook40 on 1/21/2018.
  */
@@ -12,6 +14,7 @@ public class Person {
     private int id;
     private String name;
     private String profile_path;
+    private ArrayList<Movie> known_for;
 
     public String getProfile_path() {
         return profile_path;
@@ -72,5 +75,13 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<Movie> getKnown_for() {
+        return known_for;
+    }
+
+    public void setKnown_for(ArrayList<Movie> known_for) {
+        this.known_for = known_for;
     }
 }

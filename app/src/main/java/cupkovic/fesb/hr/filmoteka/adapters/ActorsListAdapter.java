@@ -1,6 +1,7 @@
 package cupkovic.fesb.hr.filmoteka.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,12 @@ import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import cupkovic.fesb.hr.filmoteka.R;
 import cupkovic.fesb.hr.filmoteka.data.PersonsProvider;
+import cupkovic.fesb.hr.filmoteka.data.models.Movie;
 import cupkovic.fesb.hr.filmoteka.data.models.Person;
 
 public class ActorsListAdapter extends BaseAdapter {
@@ -39,10 +44,9 @@ public class ActorsListAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.actors_activity_item, parent, false);
         }
 
-        ImageView profileImage = (ImageView) convertView.findViewById(R.id.profileImage);
-        TextView actorsName = (TextView) convertView.findViewById(R.id.actorsName);
-        TextView gender= (TextView) convertView.findViewById(R.id.gender);
-        TextView birthday = (TextView) convertView.findViewById(R.id.birthday);
+        ImageView profileImage = convertView.findViewById(R.id.profileImage);
+        TextView actorsName = convertView.findViewById(R.id.actorsName);
+        TextView knownFor = convertView.findViewById(R.id.knownFor);
 
         Person currentPerson = personsProvider.getAtPosition(position);
 
@@ -50,12 +54,26 @@ public class ActorsListAdapter extends BaseAdapter {
         Ion.with(profileImage).load(profilePath);
 
         actorsName.setText(currentPerson.getName());
-        gender.setText(currentPerson.getGender());
-        birthday.setText(currentPerson.getBirthday());
+
+        ArrayList<Movie> theirMovies = currentPerson.getKnown_for();
+        knownFor.setText(createCreditsString(theirMovies));
 
         return convertView;
     }
 
+    private String createCreditsString(ArrayList<Movie> movies) {
+        String credits = "";
+
+        for (int i = 0; i < movies.size(); i++) {
+            String title = movies.get(i).getOriginal_title();
+            if (title != null && !title.equals("null") && !title.equals("")) {
+                if (!credits.equals("")) credits += ", ";
+                credits += title;
+            }
+        }
+
+        return credits;
+    }
 
     @Override
     public Object getItem(int position) {

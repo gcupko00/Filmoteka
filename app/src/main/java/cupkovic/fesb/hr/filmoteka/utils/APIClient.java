@@ -57,7 +57,6 @@ public class APIClient {
 
     private IApiSubscriber responseSubscriber;
 
-    // Private constructor to prevent instantiation
     public APIClient(IApiSubscriber responseSubscriber) {
         this.responseSubscriber = responseSubscriber;
     }

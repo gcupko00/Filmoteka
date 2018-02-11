@@ -14,14 +14,14 @@
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:maxHeight="70dp"
+        android:layout_marginTop="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/icon" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_toRightOf="@+id/profileImage"
-        android:layout_centerVertical="true"
         android:gravity="center_vertical"
+        android:orientation="vertical"
         android:layout_marginLeft="10dp"
         android:layout_height="match_parent">
 
@@ -29,29 +29,18 @@
             android:id="@+id/actorsName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:textColor="@android:color/black"
             android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/gender"
+            android:id="@+id/knownFor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/actorsName"
-            android:layout_below="@+id/actorsName"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/birthday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/gender"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
