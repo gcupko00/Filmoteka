@@ -45,8 +45,13 @@ public class Person {
         this.biography = biography;
     }
 
-    public int getGender() {
-        return gender;
+    public String getGender() {
+        if(gender == 1)
+            return "female";
+        else if(gender == 2)
+            return "male";
+        else
+            return "unknown";
     }
 
     public void setGender(int gender) {

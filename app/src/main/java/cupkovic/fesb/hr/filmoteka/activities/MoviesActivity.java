@@ -25,10 +25,6 @@ import cupkovic.fesb.hr.filmoteka.data.models.Movie;
 import cupkovic.fesb.hr.filmoteka.interfaces.IApiSubscriber;
 import cupkovic.fesb.hr.filmoteka.utils.APIClient;
 
-/**
- * Created by JureSedlar on 22-Jan-18.
- */
-
 public class MoviesActivity extends AppCompatActivity implements IApiSubscriber {
     private MoviesProvider moviesProvider;
     private MoviesListAdapter moviesListAdapter;

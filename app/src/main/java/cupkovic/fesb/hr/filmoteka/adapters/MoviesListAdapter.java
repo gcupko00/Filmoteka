@@ -1,7 +1,6 @@
 package cupkovic.fesb.hr.filmoteka.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +10,9 @@ import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
 
-import org.w3c.dom.Text;
-
 import cupkovic.fesb.hr.filmoteka.R;
-import cupkovic.fesb.hr.filmoteka.data.CastProvider;
 import cupkovic.fesb.hr.filmoteka.data.MoviesProvider;
 import cupkovic.fesb.hr.filmoteka.data.models.Movie;
-import cupkovic.fesb.hr.filmoteka.utils.APIClient;
-
-/**
- * Created by JureSedlar on 22-Jan-18.
- */
 
 public class MoviesListAdapter extends BaseAdapter {
     private Context context;
@@ -48,7 +39,7 @@ public class MoviesListAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.movies_activity_item, parent, false);
         }
 
-        ImageView posterImage = (ImageView) convertView.findViewById(R.id.posterImage);
+        ImageView posterImage = (ImageView) convertView.findViewById(R.id.profileImage);
         TextView movieTitle = (TextView) convertView.findViewById(R.id.movieTitle);
         TextView averageVote = (TextView) convertView.findViewById(R.id.averageVote);
         TextView releaseDate = (TextView) convertView.findViewById(R.id.releaseDate);
@@ -61,7 +52,6 @@ public class MoviesListAdapter extends BaseAdapter {
         movieTitle.setText(currentMovie.getOriginal_title());
         averageVote.setText(String.valueOf(currentMovie.getVote_average()));
         releaseDate.setText(currentMovie.getRelease_date());
-
 
         return convertView;
     }

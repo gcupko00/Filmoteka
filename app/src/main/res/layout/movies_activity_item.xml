@@ -7,7 +7,7 @@
     android:layout_height="80dp">
 
     <ImageView
-        android:id="@+id/posterImage"
+        android:id="@+id/profileImage"
         android:layout_width="50dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
@@ -19,7 +19,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_toRightOf="@+id/posterImage"
+        android:layout_toRightOf="@+id/profileImage"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:layout_marginLeft="10dp"

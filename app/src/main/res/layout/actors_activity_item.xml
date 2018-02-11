@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="80dp">
 
     <ImageView
-        android:id="@+id/PosterImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxHeight="70dp"
-        android:scaleType="fitXY"
+        android:id="@+id/profileImage"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:maxHeight="70dp"
+        android:scaleType="fitXY"
         android:src="@drawable/icon" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_toRightOf="@+id/PosterImage"
+        android:layout_toRightOf="@+id/profileImage"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:layout_marginLeft="10dp"
@@ -31,26 +31,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textStyle="bold"
-            android:hint="Sven Gotovac"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/Age"
+            android:id="@+id/gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/actorsName"
             android:layout_below="@+id/actorsName"
-            android:hint="45"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/Content"
+            android:id="@+id/birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Age"
-            android:maxLines="1"
+            android:layout_below="@+id/gender"
             android:ellipsize="end"
-            android:hint="Ne radi nista na FESB-u"
+            android:maxLines="1"
             android:textSize="12sp" />
 
     </RelativeLayout>
