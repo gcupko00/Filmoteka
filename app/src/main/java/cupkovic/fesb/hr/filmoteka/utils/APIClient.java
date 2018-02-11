@@ -274,7 +274,7 @@ public class APIClient {
                 JsonElement results = getJSONElement("cast", responseString);
                 ArrayList<MovieCredit> credits = gson.fromJson(results, new TypeToken<ArrayList<MovieCredit>>(){}.getType());
                 storage.setData(credits);
-                getResponseSubscriber().handleAPISuccessResponse(null);
+                getResponseSubscriber().handleAPISuccessResponse("MOVIE_CREDITS");
             }
         });
 

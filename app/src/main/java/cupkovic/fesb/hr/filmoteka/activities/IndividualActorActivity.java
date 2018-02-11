@@ -1,12 +1,16 @@
 package cupkovic.fesb.hr.filmoteka.activities;
 
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +19,10 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 
 import cupkovic.fesb.hr.filmoteka.R;
+import cupkovic.fesb.hr.filmoteka.adapters.CreditsListAdapter;
+import cupkovic.fesb.hr.filmoteka.data.CreditsProvider;
 import cupkovic.fesb.hr.filmoteka.data.FavoritesDataSource;
+import cupkovic.fesb.hr.filmoteka.data.models.MovieCredit;
 import cupkovic.fesb.hr.filmoteka.data.models.Person;
 import cupkovic.fesb.hr.filmoteka.interfaces.IApiSubscriber;
 import cupkovic.fesb.hr.filmoteka.utils.APIClient;
@@ -30,6 +37,10 @@ public class IndividualActorActivity extends AppCompatActivity implements IApiSu
     private TextView biography;
     private Button addToFavouritesButton;
     private Button removeFromFavouritesButton;
+
+    private ListView creditsListView;
+    private CreditsProvider creditsProvider;
+    private CreditsListAdapter creditsListAdapter;
 
     private APIClient apiClient;
     private Person currentActor;
@@ -77,19 +88,29 @@ public class IndividualActorActivity extends AppCompatActivity implements IApiSu
                         Toast.LENGTH_LONG).show();
             }
         });
+
+
+        this.creditsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent movieIntent = new Intent(IndividualActorActivity.this, IndividualMovieActivity.class);
+                MovieCredit currentCredit = creditsProvider.getAtPosition(position);
+                movieIntent.putExtra("CURRENT_MOVIE_ID", currentCredit.getId());
+                startActivity(movieIntent);
+            }
+        });
     }
 
     @Override
     public void handleAPISuccessResponse(Object response) {
-        this.currentActor = (Person) response;
-
-        if (response instanceof  String) {
-            Toast.makeText(getApplicationContext(),
-                    this.currentActor.getName() + " added",
-                    Toast.LENGTH_LONG).show();
+        if (response instanceof Person) {
+            this.currentActor = (Person) response;
+            apiClient.fetchMovieCredits(String.valueOf(this.currentActor.getId()), this.creditsProvider);
         }
-
-        displayActorData();
+        else if (response instanceof String && response.equals("MOVIE_CREDITS")) {
+            if (this.currentActor != null)
+                displayActorData();
+        }
     }
 
     @Override
@@ -100,6 +121,7 @@ public class IndividualActorActivity extends AppCompatActivity implements IApiSu
     private void setup() {
         this.apiClient = new APIClient(this);
         this.favoritesDataSource = new FavoritesDataSource(getApplicationContext());
+        this.creditsProvider = new CreditsProvider();
 
         this.profile = (ImageView) findViewById(R.id.individual_actor_image);
         this.name = (TextView) findViewById(R.id.individual_actor_name);
@@ -109,6 +131,9 @@ public class IndividualActorActivity extends AppCompatActivity implements IApiSu
         this.biography = (TextView) findViewById(R.id.individual_actor_biography);
         this.addToFavouritesButton = (Button) findViewById(R.id.addActorToFavouritesBtn);
         this.removeFromFavouritesButton = (Button) findViewById(R.id.removeActorFromFavouritesBtn);
+        this.creditsListView = (ListView) findViewById(R.id.creditsListView);
+
+        this.creditsListAdapter = new CreditsListAdapter(getApplicationContext(), this.creditsProvider);
     }
 
     private void displayActorData() {
@@ -130,6 +155,11 @@ public class IndividualActorActivity extends AppCompatActivity implements IApiSu
         else {
 
             this.removeFromFavouritesButton.setVisibility(View.INVISIBLE);
+        }
+
+        this.creditsListView.setAdapter(this.creditsListAdapter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.creditsListView.setNestedScrollingEnabled(true);
         }
     }
 }

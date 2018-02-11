@@ -64,11 +64,13 @@ public class ActorsListAdapter extends BaseAdapter {
     private String createCreditsString(ArrayList<Movie> movies) {
         String credits = "";
 
-        for (int i = 0; i < movies.size(); i++) {
-            String title = movies.get(i).getOriginal_title();
-            if (title != null && !title.equals("null") && !title.equals("")) {
-                if (!credits.equals("")) credits += ", ";
-                credits += title;
+        if (movies != null) {
+            for (int i = 0; i < movies.size(); i++) {
+                String title = movies.get(i).getOriginal_title();
+                if (title != null && !title.equals("null") && !title.equals("")) {
+                    if (!credits.equals("")) credits += ", ";
+                    credits += title;
+                }
             }
         }
 
