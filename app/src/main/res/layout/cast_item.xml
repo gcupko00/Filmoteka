@@ -1,57 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="50dp"
         android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:adjustViewBounds="true"
+        android:layout_marginTop="10dp"
         android:maxHeight="70dp"
         android:scaleType="fitXY"
         android:src="@drawable/icon" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_toRightOf="@+id/profileImage"
-        android:layout_centerVertical="true"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
         android:gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/movieTitle"
+            android:id="@+id/actorsName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:textColor="@android:color/black"
             android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/averageVote"
+            android:id="@+id/characterName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/movieTitle"
-            android:layout_below="@+id/movieTitle"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@android:color/black"
             android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/releaseDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/averageVote"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
-
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

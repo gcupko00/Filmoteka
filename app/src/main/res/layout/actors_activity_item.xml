@@ -30,8 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:textStyle="bold"
-            android:textSize="12sp" />
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/gender"
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/actorsName"
             android:layout_below="@+id/actorsName"
+            android:textColor="@android:color/darker_gray"
             android:textSize="12sp" />
 
         <TextView
@@ -48,6 +50,7 @@
             android:layout_below="@+id/gender"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textColor="@android:color/darker_gray"
             android:textSize="12sp" />
 
     </RelativeLayout>

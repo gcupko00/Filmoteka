@@ -1,12 +1,15 @@
 package cupkovic.fesb.hr.filmoteka.activities;
 
+import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,10 +18,10 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 
 import cupkovic.fesb.hr.filmoteka.R;
+import cupkovic.fesb.hr.filmoteka.adapters.CastListAdapter;
 import cupkovic.fesb.hr.filmoteka.data.CastProvider;
 import cupkovic.fesb.hr.filmoteka.data.CrewProvider;
 import cupkovic.fesb.hr.filmoteka.data.FavoritesDataSource;
-import cupkovic.fesb.hr.filmoteka.data.MoviesProvider;
 import cupkovic.fesb.hr.filmoteka.data.models.CastMember;
 import cupkovic.fesb.hr.filmoteka.data.models.Genre;
 import cupkovic.fesb.hr.filmoteka.data.models.Movie;
@@ -36,16 +39,18 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
     private TextView popularity;
     private TextView averageVote;
     private TextView voteCount;
-    private TextView cast;
+    //private TextView cast;
     private EditText editRating;
     private Button addToFavouritesButton;
     private Button removeFromFavouritesButton;
     private Button addToWatchlistButton;
     private Button removeFromWatchlistButton;
     private Button rateButton;
+    private ListView castListView;
 
     private CastProvider castProvider;
     private CrewProvider crewProvider;
+    private CastListAdapter castListAdapter;
     private APIClient apiClient;
     private Movie currentMovie;
     private FavoritesDataSource favoritesDataSource;
@@ -132,6 +137,16 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
             }
         });
 
+        castListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent actorIntent = new Intent(IndividualMovieActivity.this, IndividualActorActivity.class);
+                CastMember currentCastMember = castProvider.getAtPosition(position);
+                actorIntent.putExtra("CURRENT_ACTOR_ID", currentCastMember.getId());
+                startActivity(actorIntent);
+            }
+        });
+
     }
 
     @Override
@@ -161,6 +176,7 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
         this.castProvider = new CastProvider();
         this.crewProvider = new CrewProvider();
         this.favoritesDataSource = new FavoritesDataSource(getApplicationContext());
+        this.castListAdapter = new CastListAdapter(getApplicationContext(), this.castProvider);
 
         this.poster = (ImageView) findViewById(R.id.individual_movie_image);
         this.title = (TextView) findViewById(R.id.individual_movie_title);
@@ -171,13 +187,14 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
         this.popularity = (TextView) findViewById(R.id.individual_movie_popularity);
         this.averageVote = (TextView) findViewById(R.id.individual_movie_averageVote);
         this.voteCount = (TextView) findViewById(R.id.individual_movie_voteCount);
-        this.cast = (TextView) findViewById(R.id.individual_movie_cast);
+        //this.cast = (TextView) findViewById(R.id.individual_movie_cast);
         this.addToFavouritesButton = (Button) findViewById(R.id.addMovieToFavouritesBtn);
         this.removeFromFavouritesButton = (Button) findViewById(R.id.removeMovieFromFavouritesBtn);
         this.addToWatchlistButton = (Button) findViewById(R.id.addMovieToWatchlistBtn);
         this.removeFromWatchlistButton = (Button) findViewById(R.id.removeMovieFromWatchlistBtn);
         this.editRating = (EditText) findViewById(R.id.editMovieRate);
         this.rateButton = (Button) findViewById(R.id.rateMovieButton);
+        this.castListView = (ListView) findViewById(R.id.castListView);
     }
 
     private void loadCrewAndCastData(int movieId) {
@@ -200,7 +217,13 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
         this.popularity.setText(String.valueOf(currentMovie.getPopularity()));
         this.averageVote.setText(String.valueOf(currentMovie.getVote_average()));
         this.voteCount.setText(String.valueOf(currentMovie.getVote_count()));
-        this.cast.setText(castString);
+
+        this.castListView.setAdapter(castListAdapter);
+        // hack to enable scrolling (if api < lollipop, screw it)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.castListView.setNestedScrollingEnabled(true);
+        }
+        //this.cast.setText(castString);
 
         //if a movie is not added to favourites, do not display remove button
         //otherwise the button is displayed
