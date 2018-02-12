@@ -33,6 +33,7 @@ public class ActorsActivity extends AppCompatActivity implements IApiSubscriber 
     private ListView actorsListView;
     private SearchView actorsSearchView;
     private Button favouritesButton;
+    private Button homeButton;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,14 @@ public class ActorsActivity extends AppCompatActivity implements IApiSubscriber 
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent favourites = new Intent(ActorsActivity.this, MainActivity.class);
+                startActivity(favourites);
             }
         });
 
@@ -97,6 +106,7 @@ public class ActorsActivity extends AppCompatActivity implements IApiSubscriber 
         this.actorsListAdapter = new ActorsListAdapter(getApplicationContext(), this.personsProvider);
         this.actorsListView = (ListView) findViewById(R.id.actors_ListView);
         this.actorsSearchView = (SearchView) findViewById(R.id.actors_SearchView);
+        this.homeButton = (Button) findViewById(R.id.homeBtn);
         this.favouritesButton = (Button) findViewById(R.id.FavouritesBtn);
     }
 

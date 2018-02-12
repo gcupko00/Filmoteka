@@ -46,6 +46,7 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
     private Button addToWatchlistButton;
     private Button removeFromWatchlistButton;
     private Button rateButton;
+    private Button homeButton;
     private ListView castListView;
 
     private CastProvider castProvider;
@@ -67,6 +68,14 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
             int movieId = extras.getInt("CURRENT_MOVIE_ID");
             this.apiClient.fetchMovie(String.valueOf(movieId));
         }
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent favourites = new Intent(IndividualMovieActivity.this, MainActivity.class);
+                startActivity(favourites);
+            }
+        });
 
         addToFavouritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +197,7 @@ public class IndividualMovieActivity extends AppCompatActivity implements IApiSu
         this.averageVote = (TextView) findViewById(R.id.individual_movie_averageVote);
         this.voteCount = (TextView) findViewById(R.id.individual_movie_voteCount);
         //this.cast = (TextView) findViewById(R.id.individual_movie_cast);
+        this.homeButton = (Button) findViewById(R.id.homeBtn);
         this.addToFavouritesButton = (Button) findViewById(R.id.addMovieToFavouritesBtn);
         this.removeFromFavouritesButton = (Button) findViewById(R.id.removeMovieFromFavouritesBtn);
         this.addToWatchlistButton = (Button) findViewById(R.id.addMovieToWatchlistBtn);

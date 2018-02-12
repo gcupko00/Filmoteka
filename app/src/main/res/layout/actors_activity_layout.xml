@@ -20,6 +20,13 @@
         android:orientation="vertical"
         android:padding="5dp">
 
+        <Button
+            android:id="@+id/homeBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/home" />
 
         <TextView
             android:id="@+id/actors_title"

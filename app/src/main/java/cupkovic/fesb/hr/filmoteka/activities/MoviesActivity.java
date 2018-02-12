@@ -39,6 +39,7 @@ public class MoviesActivity extends AppCompatActivity implements IApiSubscriber 
     private Button resetButton;
     private Button favouritesButton;
     private Button watchlistButton;
+    private Button homeButton;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,14 @@ public class MoviesActivity extends AppCompatActivity implements IApiSubscriber 
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent favourites = new Intent(MoviesActivity.this, MainActivity.class);
+                startActivity(favourites);
             }
         });
 
@@ -135,6 +144,7 @@ public class MoviesActivity extends AppCompatActivity implements IApiSubscriber 
         this.moviesListAdapter = new MoviesListAdapter(getApplicationContext(), this.moviesProvider);
         this.moviesListView = (ListView) findViewById(R.id.movies_ListView);
         this.moviesSearchView = (SearchView) findViewById(R.id.moviesSearchView);
+        this.homeButton = (Button) findViewById(R.id.homeBtn);
         this.favouritesButton = (Button) findViewById(R.id.FavouritesBtn);
         this.watchlistButton = (Button) findViewById(R.id.WatchlistBtn);
         this.filtersSpinner = (Spinner) findViewById(R.id.filtersSpinner);

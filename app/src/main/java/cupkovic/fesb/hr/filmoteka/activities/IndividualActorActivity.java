@@ -37,6 +37,7 @@ public class IndividualActorActivity extends AppCompatActivity implements IApiSu
     private TextView biography;
     private Button addToFavouritesButton;
     private Button removeFromFavouritesButton;
+    private Button homeButton;
 
     private ListView creditsListView;
     private CreditsProvider creditsProvider;
@@ -58,6 +59,14 @@ public class IndividualActorActivity extends AppCompatActivity implements IApiSu
             int actorId = extras.getInt("CURRENT_ACTOR_ID");
             this.apiClient.fetchActor(String.valueOf(actorId));
         }
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent favourites = new Intent(IndividualActorActivity.this, MainActivity.class);
+                startActivity(favourites);
+            }
+        });
 
         addToFavouritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +138,7 @@ public class IndividualActorActivity extends AppCompatActivity implements IApiSu
         this.birthday = (TextView) findViewById(R.id.individual_actor_birthday);
         this.deathday = (TextView) findViewById(R.id.individual_actor_deathday);
         this.biography = (TextView) findViewById(R.id.individual_actor_biography);
+        this.homeButton = (Button) findViewById(R.id.homeBtn);
         this.addToFavouritesButton = (Button) findViewById(R.id.addActorToFavouritesBtn);
         this.removeFromFavouritesButton = (Button) findViewById(R.id.removeActorFromFavouritesBtn);
         this.creditsListView = (ListView) findViewById(R.id.creditsListView);
